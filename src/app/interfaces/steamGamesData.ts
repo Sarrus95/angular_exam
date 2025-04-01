@@ -1,9 +1,4 @@
 export interface SteamGamesData {
-    app_id: string,
-    data: AppData   
-}
-
-export interface SteamGamesDataApi {
     [app_id: string]: {
         success: boolean,
         data: AppData

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { SteamAPIService } from './services/steam-api.service';
 import { SteamGamesList, SteamApps } from './interfaces/steamGamesList';
-import { AppData, SteamGamesData } from './interfaces/steamGamesData';
+import { AppData } from './interfaces/steamGamesData';
+
 
 @Component({
   selector: 'app-root',
@@ -10,12 +11,10 @@ import { AppData, SteamGamesData } from './interfaces/steamGamesData';
 })
 export class AppComponent {
   games: SteamApps[];
-  gamesInfo: SteamGamesData[];
   lastAppId: number;
 
   constructor(private steamService: SteamAPIService) {
     this.games = [];
-    this.gamesInfo = [];
     this.lastAppId = 0;
   }
 
@@ -25,7 +24,6 @@ export class AppComponent {
 
   loadData() {
     this.games = [];
-    this.gamesInfo = [];
     this.steamService
       .getGamesInfo(this.lastAppId)
       .subscribe((data: SteamGamesList) => {
@@ -36,7 +34,7 @@ export class AppComponent {
   }
 
   loadInfo() {
-    this.games.forEach((game) => {
+    this.games.forEach((game,index) => {
       this.steamService.getGamesData(game.appid).subscribe((info) => {
         const id = game.appid.toString();
         const appData: AppData = {
@@ -56,10 +54,7 @@ export class AppComponent {
                   : "https://store.steampowered.com/"
               }
         }
-        this.gamesInfo.push({
-          app_id: id,
-          data: appData
-        })
+        this.games[index].data = appData;
       });
     });
   }

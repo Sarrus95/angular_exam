@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 import { SteamGamesList } from '../interfaces/steamGamesList';
-import { SteamGamesDataApi } from '../interfaces/steamGamesData';
+import { SteamGamesData } from '../interfaces/steamGamesData';
 
 
 @Injectable({
@@ -23,7 +23,7 @@ export class SteamAPIService {
       + `&last_appid=${last_appid}` + this.resultOptions + resultLimit}`)
   }
 
-  getGamesData(id: number): Observable<SteamGamesDataApi>{
-    return this.http.get<SteamGamesDataApi>(`${this.gameInfo + id + this.gameInfoLang}`)
+  getGamesData(id: number): Observable<SteamGamesData>{
+    return this.http.get<SteamGamesData>(`${this.gameInfo + id + this.gameInfoLang}`)
   }
 }
