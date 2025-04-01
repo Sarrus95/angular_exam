@@ -1,11 +1,18 @@
 {
-    "/api": {
-      "target": "https://api.steampowered.com",
-      "secure": true,
-      "changeOrigin": true,
-      "pathRewrite": {
-        "^/api": ""
-      }
+  "/gameRes": {
+    "target": "https://api.steampowered.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/gameRes": ""
+    }
+  },
+  "/gameInfo": {
+    "target": "https://store.steampowered.com",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/gameInfo": ""
     }
   }
-  
+}

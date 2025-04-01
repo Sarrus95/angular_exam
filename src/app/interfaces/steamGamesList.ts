@@ -1,11 +1,11 @@
-export interface steamGamesList {
+export interface SteamGamesList {
     response : {
-        apps: [steamGamesInfo],
+        apps: [SteamApps],
         last_appid: number
     }
 }
 
-export type steamGamesInfo = {
+export interface SteamApps {
     appid: number,
     name: string,
 }

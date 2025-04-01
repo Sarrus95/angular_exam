@@ -1,30 +1,52 @@
 import { Component } from '@angular/core';
 import { SteamAPIService } from './services/steam-api.service';
-import { steamGamesList,steamGamesInfo } from './interfaces/steamGamesList';
+import { SteamGamesList, SteamApps } from './interfaces/steamGamesList';
+import { SteamGamesData } from './interfaces/steamGamesData';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  games : steamGamesInfo[];
+  games: SteamApps[];
+  gamesInfo: SteamGamesData[];
   lastAppId: number;
 
-  constructor(private steamService: SteamAPIService){
-    this.games = []
+  constructor(private steamService: SteamAPIService) {
+    this.games = [];
+    this.gamesInfo = [];
     this.lastAppId = 0;
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadData();
+    console.log(this.gamesInfo);
   }
 
-  loadData(){
+  loadData() {
     this.games = [];
-    this.steamService.getGames(this.lastAppId).subscribe((data: steamGamesList) => {
-      this.games.push(...data.response.apps);
-      this.lastAppId = data.response.last_appid;
-    })
+    this.gamesInfo = [];
+    this.steamService
+      .getGamesData(this.lastAppId)
+      .subscribe((data: SteamGamesList) => {
+        this.games.push(...data.response.apps);
+        this.lastAppId = data.response.last_appid;
+      });
+    this.loadInfo();
+  }
+
+  loadInfo() {
+    this.games.forEach((game) => {
+      this.steamService.getGamesInfo(game.appid).subscribe((info) => {
+        const id = game.appid.toString();
+        info[id].success
+          ? this.gamesInfo.push({
+            app_id: id,
+            data: info[id].data
+          })
+          : this.gamesInfo.push();
+      });
+    });
   }
 }
