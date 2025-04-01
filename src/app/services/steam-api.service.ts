@@ -18,12 +18,12 @@ export class SteamAPIService {
 
   constructor(private http: HttpClient) {}
 
-  getGamesData(last_appid: number,resultLimit = environment.defaultResults): Observable<SteamGamesList>{
+  getGamesInfo(last_appid: number,resultLimit = environment.defaultResults): Observable<SteamGamesList>{
     return this.http.get<SteamGamesList>(`${this.gamesRes + this.steamApiKey 
       + `&last_appid=${last_appid}` + this.resultOptions + resultLimit}`)
   }
 
-  getGamesInfo(id: number): Observable<SteamGamesDataApi>{
+  getGamesData(id: number): Observable<SteamGamesDataApi>{
     return this.http.get<SteamGamesDataApi>(`${this.gameInfo + id + this.gameInfoLang}`)
   }
 }

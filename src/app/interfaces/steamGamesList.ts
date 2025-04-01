@@ -1,3 +1,5 @@
+import { AppData } from "./steamGamesData"
+
 export interface SteamGamesList {
     response : {
         apps: [SteamApps],
@@ -8,4 +10,5 @@ export interface SteamGamesList {
 export interface SteamApps {
     appid: number,
     name: string,
+    data: AppData
 }

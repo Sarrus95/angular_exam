@@ -19,7 +19,7 @@ export interface AppData {
     metacritic: {
         score: number
     },
-    genres: [GameGenres],
+    genres: GameGenres[],
     release_date: GameReleaseDate,
     support_info: {
         url: string
