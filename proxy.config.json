@@ -1,0 +1,11 @@
+{
+    "/api": {
+      "target": "https://api.steampowered.com",
+      "secure": true,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }
+  
