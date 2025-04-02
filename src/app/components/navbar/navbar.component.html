@@ -1,0 +1,14 @@
+<div class="pure-menu pure-menu-horizontal">
+    <ul class="pure-menu-list">
+        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+            <a id="pagesLink" class="pure-menu-link">Pages</a>
+            <ul class="pure-menu-children">
+                @for(page of pages;track $index){
+                    <li class="pure-menu-item">
+                        <a [routerLink]="page.router" class="pure-menu-link">{{ page.name }}</a>
+                    </li>
+                }
+            </ul>
+        </li>
+    </ul>
+</div>

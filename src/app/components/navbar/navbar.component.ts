@@ -1,0 +1,17 @@
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-navbar',
+  imports: [RouterLink],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss'
+})
+export class NavbarComponent {
+  pages =  [
+    {name: "Home",router: "/"},
+    {name: "Wishlist",router: "/wishlist"},
+    {name: "Library",router: "/library"},
+  ]
+  categories = ["Azione","Avventura","Indie"]
+}

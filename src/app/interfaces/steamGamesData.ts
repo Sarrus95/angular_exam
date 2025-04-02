@@ -6,6 +6,7 @@ export interface SteamGamesData {
 }
 
 export interface AppData {
+    name: string,
     short_description: string,
     header_image: string,
     price_overview: {

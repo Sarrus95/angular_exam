@@ -1,0 +1,22 @@
+@if(wishlistGames.length < 21){
+
+} @else{
+<div class="pure-g">
+  @for(game of wishlistGames;track game.appid){
+  <div class="pure-u-1-3">
+    <div id="card-area">
+      <div id="card-img">
+        <img [src]="game?.data?.header_image || 'assets/imgs/default.jpg'" />
+      </div>
+      <div id="card-info">
+        <div id="category-box">
+          <div>Wishlist</div>
+          <div>In Library</div>
+          <div>Favourite</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>
+}
