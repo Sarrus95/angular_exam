@@ -4,11 +4,12 @@ import { SteamAPIService } from '../../services/steam-api.service';
 import { AppData } from '../../interfaces/steamGamesData';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { forkJoin } from 'rxjs';
-import { InfoCardComponent } from "../../components/info-card/info-card.component";
+import { InfoCardComponent } from "../../components/cards/game-info-card/game-info-card.component";
+import { GameCardComponent } from "../../components/cards/home-game-card/home-game-card.component";
 
 @Component({
   selector: 'app-home',
-  imports: [SpinnerComponent, InfoCardComponent],
+  imports: [SpinnerComponent, InfoCardComponent, GameCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -70,7 +71,7 @@ export class HomeComponent {
     });
   }
 
-  openModal(game: SteamApps){
+  openModalHandler(game: SteamApps){
     this.selectedGame = game;
     this.viewModal = true;
   }

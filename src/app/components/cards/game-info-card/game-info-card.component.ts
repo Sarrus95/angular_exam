@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SteamApps } from '../../interfaces/steamGamesList';
+import { SteamApps } from '../../../interfaces/steamGamesList';
 
 @Component({
   selector: 'app-info-card',
   imports: [],
-  templateUrl: './info-card.component.html',
-  styleUrl: './info-card.component.scss'
+  templateUrl: './game-info-card.component.html',
+  styleUrl: './game-info-card.component.scss'
 })
 export class InfoCardComponent {
   @Input() game: SteamApps | null;
