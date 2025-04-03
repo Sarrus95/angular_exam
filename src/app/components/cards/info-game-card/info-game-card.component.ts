@@ -2,12 +2,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SteamApps } from '../../../interfaces/steamGamesList';
 
 @Component({
-  selector: 'app-info-card',
+  selector: 'app-info-game-card',
   imports: [],
-  templateUrl: './game-info-card.component.html',
-  styleUrl: './game-info-card.component.scss'
+  templateUrl: './info-game-card.component.html',
+  styleUrl: './info-game-card.component.scss'
 })
-export class InfoCardComponent {
+export class InfoGameCardComponent {
   @Input() game: SteamApps | null;
   @Input() isVisible: boolean;
   @Output() modalCloser = new EventEmitter<void>;
@@ -18,7 +18,6 @@ export class InfoCardComponent {
   }
 
   closeModal(){
-    console.log("button clicked");
     this.modalCloser.emit();
   }
 }

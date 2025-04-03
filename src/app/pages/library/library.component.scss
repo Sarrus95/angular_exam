@@ -1,0 +1,23 @@
+.no-games-message {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: #ff5722; 
+    background-color: #fbe9e7; 
+    border: 2px dashed #ff8a65;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    margin: 20px auto;
+    width: 50%; 
+    animation: fadeIn 1.2s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  

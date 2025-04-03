@@ -1,0 +1,11 @@
+<div id="card-area">
+    <div (click)="openModal()" id="card-img">
+      <img [src]="game.data?.header_image || 'assets/imgs/default.jpg'" />
+    </div>
+    <div id="card-info">
+      <div id="category-box">
+        <button (click)="addToFavourites(game)" class="card-labels">Add To Favourites</button>
+        <button (click)="removeFromFavourites(game)" class="card-labels">Remove From Favourites</button>
+      </div>
+    </div>
+  </div>

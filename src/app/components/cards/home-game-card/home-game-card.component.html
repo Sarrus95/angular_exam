@@ -1,10 +1,12 @@
-<div (click)="openModal()" id="card-area">
-  <div id="card-img">
-    <img [src]="game?.data?.header_image || 'assets/imgs/default.jpg'" />
+<div id="card-area">
+  <div (click)="openModal()" id="card-img">
+    <img [src]="game.data?.header_image || 'assets/imgs/default.jpg'" />
   </div>
   <div id="card-info">
     <div id="category-box">
-      <button class="card-labels">Wishlist</button>
+      @if(game.data?.price_overview?.final_formatted !== "Free To Play"){
+        <button (click)="sendToWishlist(game)" class="card-labels">Wishlist</button>
+      }
       <button class="card-labels">In Library</button>
       <button class="card-labels">Favourite</button>
     </div>

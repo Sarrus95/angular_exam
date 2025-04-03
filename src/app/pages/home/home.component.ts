@@ -4,25 +4,25 @@ import { SteamAPIService } from '../../services/steam-api.service';
 import { AppData } from '../../interfaces/steamGamesData';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { forkJoin } from 'rxjs';
-import { InfoCardComponent } from "../../components/cards/game-info-card/game-info-card.component";
-import { GameCardComponent } from "../../components/cards/home-game-card/home-game-card.component";
+import { InfoGameCardComponent } from '../../components/cards/info-game-card/info-game-card.component';
+import { HomeGameCardComponent } from '../../components/cards/home-game-card/home-game-card.component';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { ModalHandler } from '../../classes/modalHandler';
 
 @Component({
   selector: 'app-home',
-  imports: [SpinnerComponent, InfoCardComponent, GameCardComponent],
+  imports: [SpinnerComponent, InfoGameCardComponent,HomeGameCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent extends ModalHandler {
   homeGames: SteamApps[];
   lastAppId: number;
-  selectedGame!: SteamApps;
-  viewModal: boolean;
 
-  constructor(private steamService: SteamAPIService) {
+  constructor(private steamService: SteamAPIService,private localStorage: LocalStorageService) {
+    super();
     this.homeGames = [];
     this.lastAppId = 0;
-    this.viewModal = false;
   }
 
   ngOnInit() {
@@ -71,13 +71,15 @@ export class HomeComponent {
     });
   }
 
-  openModalHandler(game: SteamApps){
-    this.selectedGame = game;
-    this.viewModal = true;
-  }
-
-  closeModalHandler(){
-    this.viewModal = false;
-    console.log(this.viewModal);
+  wishlistHandler(game: SteamApps){
+    const wishlist = JSON.parse(this.localStorage.getItem('wishlist') || '[]');
+    if (!wishlist.some((wishlistGame: SteamApps) => wishlistGame.appid === game.appid)){
+      wishlist.push(game);
+      this.localStorage.setItem('wishlist',JSON.stringify(wishlist));
+      alert("Game Added To Wishlist!");
+    }
+    else{
+      alert("Game Already In Wishlist!");
+    }
   }
 }

@@ -1,0 +1,12 @@
+<div id="card-area">
+  <div (click)="openModal()" id="card-img">
+    <img [src]="game.data?.header_image || 'assets/imgs/default.jpg'" />
+  </div>
+  <div id="card-info">
+    <div id="category-box">
+      <p class="card-labels">Price: {{ game.data?.price_overview?.final_formatted }}</p>
+      <button (click)="buyGame(game)" class="card-labels">Buy</button>
+      <button (click)="removeFromWishlist(game)" class="card-labels">Remove From Wishlist</button>
+    </div>
+  </div>
+</div>
