@@ -3,7 +3,7 @@ import { SteamApps } from '../../interfaces/steamGamesList';
 import { WishlistGameCardComponent } from "../../components/cards/wishlist-game-card/wishlist-game-card.component";
 import { LocalStorageService } from '../../services/local-storage.service';
 import { ModalHandler } from '../../classes/modalHandler';
-import { InfoGameCardComponent } from "../../components/cards/info-game-card/info-game-card.component";
+import { InfoGameCardComponent } from "../../components/modals/info-game-card/info-game-card.component";
 
 
 @Component({
@@ -30,10 +30,15 @@ export class WishlistComponent extends ModalHandler {
 
   buyGameHandler(game: SteamApps){
     const library = JSON.parse(this.localStorage.getItem('library') || '[]');
-    library.push(game);
-    this.localStorage.setItem('library',JSON.stringify(library));
-    alert("Game Added To Library");
-    this.wishlistRemoverHandler(game);
+    if(!library.some((libraryGames: SteamApps) => libraryGames.appid === game.appid)){
+      library.push(game);
+      this.localStorage.setItem('library',JSON.stringify(library));
+      alert("Game Added To Library!");
+      this.wishlistRemoverHandler(game);
+    }
+    else{
+      alert("Game Already In Library!")
+    }
   }
 
   wishlistRemoverHandler(game: SteamApps){

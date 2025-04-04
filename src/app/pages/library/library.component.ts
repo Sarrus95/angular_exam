@@ -3,7 +3,7 @@ import { ModalHandler } from '../../classes/modalHandler';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { SteamApps } from '../../interfaces/steamGamesList';
 import { LibraryGameCardComponent } from "../../components/cards/library-game-card/library-game-card.component";
-import { InfoGameCardComponent } from "../../components/cards/info-game-card/info-game-card.component";
+import { InfoGameCardComponent } from "../../components/modals/info-game-card/info-game-card.component";
 
 @Component({
   selector: 'app-library',

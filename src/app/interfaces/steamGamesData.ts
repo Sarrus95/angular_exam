@@ -23,7 +23,6 @@ export interface AppData {
 }
 
 export interface GameGenres {
-    id: number,
     description: string
 }
 

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { BaseGameCardComponent } from '../base-game-card/base-game-card.component';
 import { SteamApps } from '../../../interfaces/steamGamesList';
+import { LocalStorageService } from '../../../services/local-storage.service';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -13,7 +15,19 @@ import { SteamApps } from '../../../interfaces/steamGamesList';
 export class HomeGameCardComponent extends BaseGameCardComponent {
   @Output() wishlistSend = new EventEmitter<SteamApps>
 
+  constructor(localStorage: LocalStorageService){
+    super(localStorage);
+  }
+
   sendToWishlist(game: SteamApps){
     this.wishlistSend.emit(game)
+  }
+
+  isInWishlist(game: SteamApps){
+    return this.localStorage.isIn(environment.wishlistLabel,game);
+  }
+
+  isInLibrary(game: SteamApps){
+    return this.localStorage.isIn(environment.libraryLabel,game);
   }
 }

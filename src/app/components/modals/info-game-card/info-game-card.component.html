@@ -1,0 +1,24 @@
+@if(isVisible && game){
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ game.data?.name }}</h2>
+      <img
+        [src]="game.data?.header_image || 'assets/imgs/default.jpg'"
+        alt="{{ game.data?.name }}"
+      />
+      <p>{{ game.data?.short_description }}</p>
+      <p>
+        <strong>Price:</strong> {{ game.data?.price_overview?.final_formatted }}
+      </p>
+      <p><strong>Release Date:</strong> {{ game.data?.release_date?.date }}</p>
+      <p><strong>Metacritic Score:</strong> {{ game.data?.metacritic?.score }}</p>
+      <p><strong>Genres:</strong> 
+        @for(genre of game.data?.genres;track $index){
+          {{ genre.description }}
+        }
+      </p>
+      <a [href]="game.data?.support_info?.url" target="_blank">Support</a>
+    </div>
+  </div>
+}

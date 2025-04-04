@@ -4,11 +4,13 @@
   </div>
   <div id="card-info">
     <div id="category-box">
-      @if(game.data?.price_overview?.final_formatted !== "Free To Play"){
-        <button (click)="sendToWishlist(game)" class="card-labels">Wishlist</button>
+      @if(game.data?.price_overview?.final_formatted !== "Free To Play" && !isInWishlist(game) && !isInLibrary(game)){
+        <button (click)="sendToWishlist(game)" class="card-labels-int">Add To Wishlist</button>
       }
-      <button class="card-labels">In Library</button>
-      <button class="card-labels">Favourite</button>
+      @if(isInLibrary(game)){
+        <button disabled class="card-labels">In Library</button>
+      }
+      <button disabled class="card-labels">Favourite</button>
     </div>
   </div>
 </div>

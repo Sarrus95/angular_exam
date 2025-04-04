@@ -3,15 +3,16 @@ import { SteamApps, SteamGamesList } from '../../interfaces/steamGamesList';
 import { SteamAPIService } from '../../services/steam-api.service';
 import { AppData } from '../../interfaces/steamGamesData';
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
-import { forkJoin } from 'rxjs';
-import { InfoGameCardComponent } from '../../components/cards/info-game-card/info-game-card.component';
+import { forkJoin, Observable } from 'rxjs';
+import { InfoGameCardComponent } from '../../components/modals/info-game-card/info-game-card.component';
 import { HomeGameCardComponent } from '../../components/cards/home-game-card/home-game-card.component';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { ModalHandler } from '../../classes/modalHandler';
+import { CategoryService } from '../../services/categories-service.service';
 
 @Component({
   selector: 'app-home',
-  imports: [SpinnerComponent, InfoGameCardComponent,HomeGameCardComponent],
+  imports: [SpinnerComponent, InfoGameCardComponent, HomeGameCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
@@ -19,7 +20,11 @@ export class HomeComponent extends ModalHandler {
   homeGames: SteamApps[];
   lastAppId: number;
 
-  constructor(private steamService: SteamAPIService,private localStorage: LocalStorageService) {
+  constructor(
+    private steamService: SteamAPIService,
+    private localStorage: LocalStorageService,
+    private categoryService: CategoryService
+  ) {
     super();
     this.homeGames = [];
     this.lastAppId = 0;
@@ -71,15 +76,39 @@ export class HomeComponent extends ModalHandler {
     });
   }
 
-  wishlistHandler(game: SteamApps){
+  wishlistHandler(game: SteamApps) {
     const wishlist = JSON.parse(this.localStorage.getItem('wishlist') || '[]');
-    if (!wishlist.some((wishlistGame: SteamApps) => wishlistGame.appid === game.appid)){
+    if (
+      !wishlist.some(
+        (wishlistGame: SteamApps) => wishlistGame.appid === game.appid
+      )
+    ) {
       wishlist.push(game);
-      this.localStorage.setItem('wishlist',JSON.stringify(wishlist));
-      alert("Game Added To Wishlist!");
+      this.localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      alert('Game Added To Wishlist!');
+    } else {
+      alert('Game Already In Wishlist!');
+    }
+  }
+
+  categoryCheck(){
+    this.categoryService.selectedCategory.subscribe((category) =>{
+      if(category){
+        this.categoryFetch(category);
+      }
+    })
+  }
+
+  categoryFetch(category: string) {
+    const results = this.homeGames.filter((homeGame: SteamApps) =>
+      homeGame.data?.genres.some((genre) => genre.description === category)
+    );
+    if (results.length > 0){
+      this.homeGames = results
     }
     else{
-      alert("Game Already In Wishlist!");
+      alert(`No Games in category ${category}`)
     }
+    this.categoryService.clearCategory();
   }
 }
