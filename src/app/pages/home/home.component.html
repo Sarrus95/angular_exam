@@ -2,18 +2,38 @@
 <app-spinner></app-spinner>
 } @else{
 <div class="pure-g">
-  @for(game of homeGames;track game.appid){
-  <div class="pure-u-1-3">
-    <app-home-game-card
-      [game]="game"
-      (modalOpener)="openModalHandler($event)"
-      (wishlistSend)="wishlistHandler($event)"
-    >
-    </app-home-game-card>
-  </div>
+  @if(categoryGames.length === 0){
+    @for(game of homeGames;track game.appid){
+      <div class="pure-u-1-3">
+        <app-home-game-card
+          [game]="game"
+          (modalOpener)="openModalHandler($event)"
+          (wishlistSend)="wishlistHandler($event)"
+          (librarySend)="libraryHandler($event)"
+        >
+        </app-home-game-card>
+      </div>
+      }
+  } @else {
+    @for(game of categoryGames;track game.appid){
+      <div class="pure-u-1-3">
+        <app-home-game-card
+          [game]="game"
+          (modalOpener)="openModalHandler($event)"
+          (wishlistSend)="wishlistHandler($event)"
+          (librarySend)="libraryHandler($event)"
+        >
+        </app-home-game-card>
+      </div>
+      }
   }
 </div>
-<button id="next-button" (click)="loadData()">Load More</button>
+<div id="page-buttons">
+  @if(page !== 0){
+    <button class="page-button" (click)="loadHomeGames(actions.prevPage)">Previous Page</button>
+  }
+  <button class="page-button" (click)="loadHomeGames(actions.nextPage)">Next Page</button>
+</div>
 <app-info-game-card
   [game]="selectedGame"
   [isVisible]="viewModal"

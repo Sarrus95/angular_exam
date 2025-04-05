@@ -13,14 +13,19 @@ import { environment } from '../../../../environments/environment';
 })
 
 export class HomeGameCardComponent extends BaseGameCardComponent {
-  @Output() wishlistSend = new EventEmitter<SteamApps>
+  @Output() wishlistSend = new EventEmitter<SteamApps>;
+  @Output() librarySend = new EventEmitter<SteamApps>;
 
   constructor(localStorage: LocalStorageService){
     super(localStorage);
   }
 
   sendToWishlist(game: SteamApps){
-    this.wishlistSend.emit(game)
+    this.wishlistSend.emit(game);
+  }
+
+  sendToLibrary(game: SteamApps){
+    this.librarySend.emit(game);
   }
 
   isInWishlist(game: SteamApps){
@@ -29,5 +34,9 @@ export class HomeGameCardComponent extends BaseGameCardComponent {
 
   isInLibrary(game: SteamApps){
     return this.localStorage.isIn(environment.libraryLabel,game);
+  }
+
+  isInFavourites(game: SteamApps){
+    return this.localStorage.isIn(environment.favouritesLabel,game);
   }
 }

@@ -1,27 +1,44 @@
-<div class="pure-menu pure-menu-horizontal">
+<nav id="app-nav-bar">
+  <div class="pure-menu pure-menu-horizontal">
     <ul class="pure-menu-list">
-        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-            <a href="#" id="pagesLink" class="pure-menu-link">Pages</a>
-            <ul class="pure-menu-children">
-                @for(page of pages;track $index){
-                    <li class="pure-menu-item">
-                        <a href="#" [routerLink]="page.router" class="pure-menu-link">{{ page.name }}</a>
-                    </li>
-                }
-            </ul>
+      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+        <a id="pagesLink" class="pure-menu-link">Pages</a>
+        <ul class="pure-menu-children">
+          @for(page of pages;track $index){
+          <li class="pure-menu-item">
+            <a [routerLink]="page.router" class="pure-menu-link">{{
+              page.name
+            }}</a>
+          </li>
+          }
+        </ul>
+      </li>
+      <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+        <a id="pagesLink" class="pure-menu-link">Categories</a>
+        <ul class="pure-menu-children">
+          @for(category of categories;track $index){
+          <li class="pure-menu-item">
+            <a
+              (click)="categorySender(category)"
+              class="pure-menu-link"
+              >{{ category }}</a
+            >
+          </li>
+          }
+        </ul>
+      </li>
+      @if(favourites.optionVisible){
+        <li class="pure-menu-item">
+          <a (click)="toggleOnlyFavourites()" class="pure-menu-link"
+            >{{ favourites.label }}</a
+          >
         </li>
-        <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-            <a href="#" id="pagesLink" class="pure-menu-link">Categories</a>
-            <ul class="pure-menu-children">
-                @for(category of categories;track $index){
-                    <li class="pure-menu-item">
-                        <a href="#" (click)="categorySender(category)" class="pure-menu-link">{{ category }}</a>
-                    </li>
-                }
-            </ul>
-        </li>
-        <li class="pure-menu-item pure-menu-selected">
-            <a href="#" (click)="clearStorage()" class="pure-menu-link">CLEAR LOCAL STORAGE</a>
-        </li>
+        }
+      <li class="pure-menu-item">
+        <a (click)="clearStorage()" class="pure-menu-link"
+          >CLEAR LOCAL STORAGE</a
+        >
+      </li>
     </ul>
-</div>
+  </div>
+</nav>

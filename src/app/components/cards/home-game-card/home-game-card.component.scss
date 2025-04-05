@@ -52,6 +52,7 @@
             margin: 0 8px; 
             font-size: 14px;
             font-weight: bold;
+            background-color: transparent;
             color: white;
 
             &:hover {
@@ -63,7 +64,6 @@
         .card-labels-int{
             @extend .card-labels;
             outline: none;
-            background-color: transparent;
             background-repeat: no-repeat;
             border: none;
             cursor: pointer;

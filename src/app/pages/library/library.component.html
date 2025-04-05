@@ -2,7 +2,8 @@
 <p class="no-games-message">NO GAMES IN LIBRARY</p>
 } @else{
 <div class="pure-g">
-  @for(game of libraryGames;track game.appid){
+  @if(favouriteGames.length !== 0){ @for(game of favouriteGames;track
+  game.appid){
   <app-library-game-card
     [game]="game"
     (modalOpener)="openModalHandler($event)"
@@ -10,7 +11,15 @@
     (favouriteRemove)="favouriteRemoveHandler($event)"
   >
   </app-library-game-card>
-  }
+  } } @else { @for(game of libraryGames;track game.appid){
+  <app-library-game-card
+    [game]="game"
+    (modalOpener)="openModalHandler($event)"
+    (favouriteAdd)="favouriteAddHandler($event)"
+    (favouriteRemove)="favouriteRemoveHandler($event)"
+  >
+  </app-library-game-card>
+  } }
 </div>
 <app-info-game-card
   [game]="selectedGame"

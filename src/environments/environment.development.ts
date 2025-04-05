@@ -6,7 +6,11 @@ export const environment = {
     gameInfo: "/gameInfo/api/appdetails?appids=",
     gameInfoLang: "&l=italian",
     defaultResults: 21,
+    storedGamesLabel: 'storedGames',
+    storedAppId: 'storedAppId',
     wishlistLabel: 'wishlist',
     libraryLabel: 'library',
-    favouritesLabel: 'favourites'
+    favouritesLabel: 'favourites',
+    nextPage: "next",
+    prevPage: "prev"
 };
