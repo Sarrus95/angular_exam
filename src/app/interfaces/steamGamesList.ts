@@ -9,6 +9,5 @@ export interface SteamGamesList {
 
 export interface SteamApps {
     appid: number,
-    name: string,
     data: AppData | null
 }

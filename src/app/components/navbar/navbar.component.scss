@@ -1,7 +1,9 @@
 #app-nav-bar{
+    display: flex;
     position: fixed;
+    left: 0;
     top:0;
-    z-index: 2;
     width: 100%;
+    z-index: 2;
     background-color: #000000;
 }

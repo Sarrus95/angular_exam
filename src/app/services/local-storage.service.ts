@@ -5,23 +5,24 @@ import { SteamApps } from '../interfaces/steamGamesList';
   providedIn: 'root'
 })
 export class LocalStorageService {
+  private store: { [key: string]: string } = {};
 
   constructor() {}
 
-  setItem(key: string, value: string){
-    localStorage.setItem(key,value);
+  getItem(key: string): string | null{
+    return this.store[key] || null;
   }
 
-  getItem(key: string): string | null{
-    return localStorage.getItem(key);
+  setItem(key: string, value: string){
+    this.store[key] = value;
   }
 
   removeItem(key: string){
-    localStorage.removeItem(key);
+    delete this.store[key];
   }
 
   clear(){
-    localStorage.clear();
+    this.store= {};
   }
 
   isIn(key: string,game: SteamApps){

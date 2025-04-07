@@ -18,22 +18,20 @@
         <ul class="pure-menu-children">
           @for(category of categories;track $index){
           <li class="pure-menu-item">
-            <a
-              (click)="categorySender(category)"
-              class="pure-menu-link"
-              >{{ category }}</a
-            >
+            <a (click)="categorySender(category)" class="pure-menu-link">{{
+              category
+            }}</a>
           </li>
           }
         </ul>
       </li>
       @if(favourites.optionVisible){
-        <li class="pure-menu-item">
-          <a (click)="toggleOnlyFavourites()" class="pure-menu-link"
-            >{{ favourites.label }}</a
-          >
-        </li>
-        }
+      <li class="pure-menu-item">
+        <a (click)="toggleOnlyFavourites()" class="pure-menu-link">{{
+          favourites.label
+        }}</a>
+      </li>
+      }
       <li class="pure-menu-item">
         <a (click)="clearStorage()" class="pure-menu-link"
           >CLEAR LOCAL STORAGE</a
@@ -41,4 +39,13 @@
       </li>
     </ul>
   </div>
+  <form [formGroup]="searchForm" class="pure-form">
+    <input
+      id="search"
+      type="text"
+      placeholder="Search Game..."
+      formControlName="search"
+      class="pure-input-rounded"
+    />
+  </form>
 </nav>

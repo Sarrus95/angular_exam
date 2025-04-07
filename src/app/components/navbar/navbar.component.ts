@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import { RouterLink, Router, NavigationEnd } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { CategoryService } from '../../services/categories-service.service';
+import { SearchGameService } from '../../services/search-game.service';
+import { debounceTime } from 'rxjs';
+import { LowerCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterLink],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
@@ -21,11 +25,14 @@ export class NavbarComponent {
     onlyFavourites: boolean;
     label: string;
   };
+  searchForm: FormGroup;
 
   constructor(
     private localStorage: LocalStorageService,
+    private routerService: Router,
     private categoryService: CategoryService,
-    private routerService: Router
+    private formBuilder: FormBuilder,
+    private searchGameService: SearchGameService
   ) {
     this.categories = [
       'Tutti',
@@ -42,16 +49,21 @@ export class NavbarComponent {
       onlyFavourites: true,
       label: 'Tutti',
     };
+    this.searchForm = this.formBuilder.group({
+      search: [''],
+    });
+
+    this.searchGame();
   }
 
   ngOnInit() {
     this.routerService.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        this.favourites.optionVisible = this.routerService.url.includes('/library');
+        this.favourites.optionVisible =
+          this.routerService.url.includes('/library');
       }
     });
   }
-  
 
   clearStorage() {
     this.localStorage.clear();
@@ -69,6 +81,17 @@ export class NavbarComponent {
 
   toggleOnlyFavourites() {
     this.favourites.onlyFavourites = !this.favourites.onlyFavourites;
-    this.favourites.label = this.favourites.onlyFavourites ? 'Solo Preferiti' : 'Tutti';
-  }  
+    this.favourites.label = this.favourites.onlyFavourites
+      ? 'Solo Preferiti'
+      : 'Tutti';
+  }
+
+  searchGame() {
+    this.searchForm
+      .get('search')
+      ?.valueChanges.pipe(debounceTime(300))
+      .subscribe((search: string) => {
+        this.searchGameService.searchGame(search.toLowerCase());
+      });
+  }
 }
