@@ -1,20 +1,16 @@
-/* Contenitore per tutte le card */
 #card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    /* Imposta gap diverso per colonne (orizzontale) e righe (verticale) */
-    column-gap: 5px; /* colonne più vicine */
-    row-gap: 20px;   /* spaziatura verticale maggiore tra card nella stessa colonna */
+    column-gap: 5px;
+    row-gap: 20px;
     padding: 10px;
 }
 
-/* Rimuove il margin predefinito delle card, in modo che lo spacing sia gestito dal container */
 #card-container > #card-area {
     margin: 0;
 }
 
-/* Stili esistenti per le card */
 #card-area {
     display: flex;
     flex-direction: column;
@@ -22,14 +18,13 @@
     justify-content: space-between;
     background-color: #1f1f1f;
     border: 1px solid #2c2c2c;
-    border-radius: 4px; // angoli meno arrotondati
+    border-radius: 4px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     max-width: 350px;
     width: 90%;
-    /* Il margin è ora gestito dal container, quindi qui non serve */
-    
+
     &:hover {
         transform: scale(1.03);
         box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
@@ -68,7 +63,7 @@
     #category-box {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px; /* Spazio tra gli elementi del box */
+        gap: 8px;
         padding: 10px;
         border-radius: 8px;
         background-color: #131313;

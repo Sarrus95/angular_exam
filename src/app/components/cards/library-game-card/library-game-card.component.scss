@@ -1,4 +1,5 @@
 #card-area {
+    margin: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -42,10 +43,8 @@
         display: flex;
         flex-direction: row; 
         justify-content: space-between; 
-        padding: 8px; 
-        border: 2px solid #007bff; 
-        border-radius: 8px; 
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        padding: 8px;
+        border-radius: 8px;
 
         .card-labels {
             overflow: hidden;
@@ -60,18 +59,23 @@
             }
         }
 
-        .card-labels-int{
+        .card-labels-int {
             @extend .card-labels;
             outline: none;
-            background-color: transparent;
+            background-color: #007bff;
             background-repeat: no-repeat;
-            border: none;
+            border: 2px solid transparent;
             cursor: pointer;
-
-            &:hover{
-                color: #007bff; 
-                text-decoration: underline;
+            padding: 8px 14px;
+            border-radius: 4px;
+            color: white;
+        
+            &:hover {
+                background-color: #0056b3;
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             }
-        }
+        }                  
     }
 }
