@@ -1,21 +1,22 @@
-<div id="card-area">
-  <div (click)="openModal()" id="card-img">
-    <img [src]="game.data?.header_image || 'assets/imgs/default.jpg'" />
-  </div>
-  <div id="card-info">
-    <div id="category-box">
-      @if(game.data?.price_overview?.final_formatted !== "Free To Play" && !isInWishlist(game) && !isInLibrary(game)){
-        <button (click)="sendToWishlist(game)" class="card-labels-int">Add To Wishlist</button>
-      }
-      @else if(game.data?.price_overview?.final_formatted === "Free To Play" && !isInLibrary(game)) {
-        <button (click)="sendToLibrary(game)" class="card-labels-int">Add To Library</button>
-      }
-      @if(isInLibrary(game)){
-        <button disabled class="card-labels">In Library</button>
-      }
-      @if(isInFavourites(game)){
-        <button disabled class="card-labels">Favourite</button>
-      }
+<div id="card-container">
+  <div id="card-area">
+    <div (click)="openModal()" id="card-img">
+      <img [src]="game.data?.header_image || 'assets/imgs/default.jpg'" />
     </div>
-  </div>
+    <div id="card-info">
+      <div id="category-box">
+        @if(game.data?.price_overview?.final_formatted !== "Free To Play" && !isInWishlist(game) && !isInLibrary(game)){
+          <button (click)="sendToWishlist(game)" class="card-labels-int">Add To Wishlist</button>
+        }
+        @else if(game.data?.price_overview?.final_formatted === "Free To Play" && !isInLibrary(game)) {
+          <button (click)="sendToLibrary(game)" class="card-labels-int">Add To Library</button>
+        }
+        @if(isInLibrary(game)){
+          <button disabled class="card-labels">In Library</button>
+        }
+        @if(isInFavourites(game)){
+          <button disabled class="card-labels">Favourite</button>
+        }
+      </div>
+    </div>
 </div>
