@@ -65,6 +65,7 @@ export class NavbarComponent {
     });
   }
 
+  //Funzione per testare il corretto funzionamento del local storage
   clearStorage() {
     this.localStorage.clear();
     alert('LocalStorage Cleared!');

@@ -1,3 +1,9 @@
+/*
+  STEAM GAMES LIST
+
+  Mappatura primaria della chiamata API appdetails
+*/
+
 import { AppData } from "./steamGamesData"
 
 export interface SteamGamesList {

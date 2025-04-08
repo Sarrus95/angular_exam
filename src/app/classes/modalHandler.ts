@@ -1,3 +1,12 @@
+/*
+  MODAL HANDLER CLASS
+
+  Classe in comune alle pagine di visualizzazione
+  HOME/WISHLIST/LIBRARY
+
+  Abilita la corretta gestione della modal
+*/
+
 import { SteamApps } from '../interfaces/steamGamesList';
 
 export class ModalHandler {

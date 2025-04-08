@@ -1,3 +1,9 @@
+/*
+  STEAM GAME DATA INTERFACE
+
+  Mappatura della chiave "data" della chiamata API appdetails
+*/
+
 export interface SteamGamesData {
     [app_id: string]: {
         success: boolean,

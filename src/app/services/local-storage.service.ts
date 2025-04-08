@@ -1,3 +1,9 @@
+/*
+  LOCAL STORAGE SERVICE
+
+  Si è optato per l'uso di un mocked local storage poichè l'SSR non supporta in local storage classico
+*/
+
 import { Injectable } from '@angular/core';
 import { SteamApps } from '../interfaces/steamGamesList';
 

@@ -1,3 +1,11 @@
+/*
+  STEAM API SERVICE
+
+  Ingloba tutte le chiamate API necessarie per il recupero dei dati
+
+  Vedi README per maggiori info
+*/
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
