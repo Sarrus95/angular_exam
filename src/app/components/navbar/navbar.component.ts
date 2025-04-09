@@ -5,7 +5,6 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { CategoryService } from '../../services/categories-service.service';
 import { SearchGameService } from '../../services/search-game.service';
 import { debounceTime } from 'rxjs';
-import { LowerCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
