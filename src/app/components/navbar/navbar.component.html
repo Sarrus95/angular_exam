@@ -2,7 +2,7 @@
   <div class="pure-menu pure-menu-horizontal">
     <ul class="pure-menu-list">
       <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-        <a id="pagesLink" class="pure-menu-link">Pages</a>
+        <a id="pagesLink" class="pure-menu-link">Pagine</a>
         <ul class="pure-menu-children">
           @for(page of pages;track $index){
           <li class="pure-menu-item">
@@ -14,7 +14,7 @@
         </ul>
       </li>
       <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-        <a id="pagesLink" class="pure-menu-link">Categories</a>
+        <a id="pagesLink" class="pure-menu-link">{{categoriesLabel}}</a>
         <ul class="pure-menu-children">
           @for(category of categories;track $index){
           <li class="pure-menu-item">
@@ -34,7 +34,7 @@
       }
       <li class="pure-menu-item">
         <a (click)="clearStorage()" class="pure-menu-link"
-          >CLEAR LOCAL STORAGE</a
+          >CANCELLA LOCALSTORAGE</a
         >
       </li>
     </ul>
@@ -43,7 +43,7 @@
     <input
       id="search"
       type="text"
-      placeholder="Search Game..."
+      placeholder="Cerca Gioco..."
       formControlName="search"
       class="pure-input-rounded"
     />

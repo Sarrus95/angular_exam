@@ -16,9 +16,10 @@ export class NavbarComponent {
   pages = [
     { name: 'Home', router: '/' },
     { name: 'Wishlist', router: '/wishlist' },
-    { name: 'Library', router: '/library' },
+    { name: 'Libreria', router: '/library' },
   ];
   categories: string[];
+  categoriesLabel: string;
   favourites: {
     optionVisible: boolean;
     onlyFavourites: boolean;
@@ -43,6 +44,7 @@ export class NavbarComponent {
       'Strategia',
       'Free-to-Play',
     ];
+    this.categoriesLabel = "Categorie";
     this.favourites = {
       optionVisible: false,
       onlyFavourites: true,
@@ -67,7 +69,7 @@ export class NavbarComponent {
   //Funzione per testare il corretto funzionamento del local storage
   clearStorage() {
     this.localStorage.clear();
-    alert('LocalStorage Cleared!');
+    alert('LocalStorage Cancellato!');
   }
 
   categorySender(category: string) {
@@ -76,6 +78,7 @@ export class NavbarComponent {
     } else {
       this.favourites.optionVisible = false;
     }
+    this.categoriesLabel = category === "Tutti" ? "Categorie" : category;
     this.categoryService.selectCategory(category);
   }
 

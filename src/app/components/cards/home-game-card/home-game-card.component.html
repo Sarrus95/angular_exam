@@ -5,16 +5,16 @@
   <div id="card-info">
     <div id="category-box">
       @if(game.data?.price_overview?.final_formatted !== "Free To Play" && !isInWishlist(game) && !isInLibrary(game)){
-        <button (click)="sendToWishlist(game)" class="card-labels-int">Add To Wishlist</button>
+        <button (click)="sendToWishlist(game)" class="card-labels-int">Aggiungi A Lista Desideri</button>
       }
       @else if(game.data?.price_overview?.final_formatted === "Free To Play" && !isInLibrary(game)) {
-        <button (click)="sendToLibrary(game)" class="card-labels-int">Add To Library</button>
+        <button (click)="sendToLibrary(game)" class="card-labels-int">Aggiungi A Libreria</button>
       }
       @if(isInLibrary(game)){
-        <button disabled class="card-labels">In Library</button>
+        <button disabled class="card-labels">In Libreria</button>
       }
       @if(isInFavourites(game)){
-        <button disabled class="card-labels">Favourite</button>
+        <button disabled class="card-labels">Preferito</button>
       }
     </div>
   </div>
