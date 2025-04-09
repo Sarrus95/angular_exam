@@ -1,7 +1,96 @@
-#app-nav-bar{
+#app-nav-bar {
     position: fixed;
-    top:0;
-    z-index: 2;
-    width: 100%;
-    background-color: #000000;
-}
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #1e1e1e;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    font-family: 'Segoe UI', sans-serif;
+  
+    .pure-menu-horizontal {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  
+    .pure-menu-list {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      
+      // Regola applicata solo all'ultimo <li> della lista principale
+      > li:last-child .pure-menu-link {
+        color: #ff4d4f;
+        font-weight: bold;
+        transition: all 0.3s ease;
+  
+        &:hover {
+          background-color: #660000;
+          color: #fff;
+          box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
+        }
+      }
+    }
+  
+    .pure-menu-item {
+      position: relative;
+  
+      .pure-menu-link {
+        color: #f0f0f0;
+        text-decoration: none;
+        padding: 0.75rem 1rem;
+        display: block;
+        transition: all 0.3s ease;
+        border-radius: 5px;
+  
+        &:hover {
+          background: #333;
+          color: #fff;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+        }
+  
+        &:active {
+          transform: scale(0.98);
+        }
+      }
+  
+      &.pure-menu-has-children {
+        &:hover > .pure-menu-children {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+  
+        .pure-menu-children {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          background: #2b2b2b;
+          border-radius: 6px;
+          padding: 0.5rem 0;
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(10px);
+          transition: all 0.3s ease;
+          min-width: 200px;
+          z-index: 100;
+  
+          .pure-menu-item {
+            .pure-menu-link {
+              padding: 0.6rem 1rem;
+  
+              &:hover {
+                background-color: #444;
+                color: #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
