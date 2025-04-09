@@ -1,38 +1,30 @@
-/*
-  LOCAL STORAGE SERVICE
-
-  Si è optato per l'uso di un mocked local storage poichè l'SSR non supporta in local storage classico
-*/
-
-import { Injectable } from '@angular/core';
-import { SteamApps } from '../interfaces/steamGamesList';
+import { Injectable } from "@angular/core";
+import { SteamApps } from "../interfaces/steamGamesList";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
-  private store: { [key: string]: string } = {};
-
   constructor() {}
 
-  getItem(key: string): string | null{
-    return this.store[key] || null;
+  getItem(key: string): string | null {
+    return localStorage.getItem(key);
   }
 
-  setItem(key: string, value: string){
-    this.store[key] = value;
+  setItem(key: string, value: string) {
+    localStorage.setItem(key, value);
   }
 
-  removeItem(key: string){
-    delete this.store[key];
+  removeItem(key: string) {
+    localStorage.removeItem(key);
   }
 
-  clear(){
-    this.store= {};
+  clear() {
+    localStorage.clear();
   }
 
-  isIn(key: string,game: SteamApps){
+  isIn(key: string, game: SteamApps): boolean {
     const requiredData: SteamApps[] = JSON.parse(this.getItem(key) || '[]');
-    return requiredData.some((localStorageGame: SteamApps) => localStorageGame.appid === game.appid)
+    return requiredData.some((localStorageGame: SteamApps) => localStorageGame.appid === game.appid);
   }
 }

@@ -43,18 +43,17 @@ export class HomeComponent extends ModalHandler {
     this.fetchHomeGames();
     this.categoryService.selectedCategory.subscribe((category) => {
       if (category) {
-        this.categoryFetch(category);
-      } else {
-        this.searchGameService.searchedGame.subscribe((search) => {
-          if (search) {
-            this.searchGamesHandler(search);
-          } else {
-            this.loadHomeGames();
-          }
-        });
+        this.applyCategoryFilter(category);
+      }
+    });
+  
+    this.searchGameService.searchedGame.subscribe((searchQuery) => {
+      if (searchQuery !== null) {
+        this.applySearchFilter(searchQuery);
       }
     });
   }
+  
 
   fetchHomeGames(action?: string) {
     this.viewportScroller.scrollToPosition([0, 0]);
@@ -116,34 +115,29 @@ export class HomeComponent extends ModalHandler {
     }
   }
 
-  categoryFetch(category: string) {
-    if (category !== 'Tutti') {
-      const localGames = JSON.parse(
+  applyCategoryFilter(category: string) {
+    if (category === 'Tutti') {
+      this.homeGames = JSON.parse(
         this.localStorage.getItem(environment.storedGamesLabel) || '[]'
       );
-      const results = localGames.filter((homeGame: SteamApps) =>
-        homeGame.data?.genres.some((genre) => genre.description === category)
-      );
-      if (results.length > 0) {
-        this.homeGames = results;
-      } else {
-        alert(`No Games in category ${category}`);
-      }
     } else {
-      this.categoryCleaner();
+      this.homeGames = this.homeGames.filter((game) =>
+        game.data?.genres.some((genre) => genre.description === category)
+      );
     }
   }
 
-  categoryCleaner() {
-    this.categoryService.clearCategory();
-  }
-
-  searchGamesHandler(search: string) {
-    const localGames = JSON.parse(
+  applySearchFilter(searchQuery: string) {
+    const allGames: SteamApps[] = JSON.parse(
       this.localStorage.getItem(environment.storedGamesLabel) || '[]'
     );
-    this.homeGames = localGames.filter((game: SteamApps) => {
-      return game.data?.name.toLowerCase().includes(search);
-    });
+  
+    if (!searchQuery || searchQuery.trim() === '') {
+      this.homeGames = allGames;
+    } else {
+      this.homeGames = allGames.filter((game) =>
+        game.data?.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
   }
 }
