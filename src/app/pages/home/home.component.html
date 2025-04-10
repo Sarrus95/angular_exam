@@ -1,5 +1,7 @@
 @if(!gamesLoaded){
 <app-spinner></app-spinner>
+} @if(homeGames.length === 0){
+  <p class="no-games-message">NO GAMES WITH SEARCH CRITERIA</p>
 } @else{
 <div class="pure-g">
   @for(game of homeGames;track game.appid){
