@@ -1,31 +1,30 @@
-import { Injectable } from '@angular/core';
-import { SteamApps } from '../interfaces/steamGamesList';
+import { Injectable } from "@angular/core";
+import { SteamApps } from "../interfaces/steamGamesList";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
-
   constructor() {}
 
-  setItem(key: string, value: string){
-    localStorage.setItem(key,value);
-  }
-
-  getItem(key: string): string | null{
+  getItem(key: string): string | null {
     return localStorage.getItem(key);
   }
 
-  removeItem(key: string){
+  setItem(key: string, value: string) {
+    localStorage.setItem(key, value);
+  }
+
+  removeItem(key: string) {
     localStorage.removeItem(key);
   }
 
-  clear(){
+  clear() {
     localStorage.clear();
   }
 
-  isIn(key: string,game: SteamApps){
+  isIn(key: string, game: SteamApps): boolean {
     const requiredData: SteamApps[] = JSON.parse(this.getItem(key) || '[]');
-    return requiredData.some((localStorageGame: SteamApps) => localStorageGame.appid === game.appid)
+    return requiredData.some((localStorageGame: SteamApps) => localStorageGame.appid === game.appid);
   }
 }

@@ -2,7 +2,7 @@
   <div class="pure-menu pure-menu-horizontal">
     <ul class="pure-menu-list">
       <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-        <a id="pagesLink" class="pure-menu-link">Pages</a>
+        <a id="pagesLink" class="pure-menu-link">Pagine</a>
         <ul class="pure-menu-children">
           @for(page of pages;track $index){
           <li class="pure-menu-item">
@@ -14,31 +14,38 @@
         </ul>
       </li>
       <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
-        <a id="pagesLink" class="pure-menu-link">Categories</a>
+        <a id="pagesLink" class="pure-menu-link">{{categoriesLabel}}</a>
         <ul class="pure-menu-children">
           @for(category of categories;track $index){
           <li class="pure-menu-item">
-            <a
-              (click)="categorySender(category)"
-              class="pure-menu-link"
-              >{{ category }}</a
-            >
+            <a (click)="categorySender(category)" class="pure-menu-link">{{
+              category
+            }}</a>
           </li>
           }
         </ul>
       </li>
       @if(favourites.optionVisible){
-        <li class="pure-menu-item">
-          <a (click)="toggleOnlyFavourites()" class="pure-menu-link"
-            >{{ favourites.label }}</a
-          >
-        </li>
-        }
+      <li class="pure-menu-item">
+        <a (click)="toggleOnlyFavourites()" class="pure-menu-link">{{
+          favourites.label
+        }}</a>
+      </li>
+      }
       <li class="pure-menu-item">
         <a (click)="clearStorage()" class="pure-menu-link"
-          >CLEAR LOCAL STORAGE</a
+          >CANCELLA LOCALSTORAGE</a
         >
       </li>
     </ul>
   </div>
+  <form [formGroup]="searchForm" class="pure-form">
+    <input
+      id="search"
+      type="text"
+      placeholder="Cerca Gioco..."
+      formControlName="search"
+      class="pure-input-rounded"
+    />
+  </form>
 </nav>

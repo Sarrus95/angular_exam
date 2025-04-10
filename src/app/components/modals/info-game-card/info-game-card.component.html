@@ -9,16 +9,16 @@
       />
       <p>{{ game.data?.short_description }}</p>
       <p>
-        <strong>Price:</strong> {{ game.data?.price_overview?.final_formatted }}
+        <strong>Prezzo:</strong> {{ game.data?.price_overview?.final_formatted }}
       </p>
-      <p><strong>Release Date:</strong> {{ game.data?.release_date?.date }}</p>
-      <p><strong>Metacritic Score:</strong> {{ game.data?.metacritic?.score }}</p>
-      <p><strong>Genres:</strong> 
+      <p><strong>Data Di Rilascio:</strong> {{ game.data?.release_date?.date }}</p>
+      <p><strong>Punteggio Metacritic:</strong> {{ game.data?.metacritic?.score }}</p>
+      <p><strong>Genere:</strong> 
         @for(genre of game.data?.genres;track $index){
           {{ genre.description }}
         }
       </p>
-      <a [href]="game.data?.support_info?.url" target="_blank">Support</a>
+      <a [href]="game.data?.support_info?.url" target="_blank">Pagina Supporto</a>
     </div>
   </div>
 }

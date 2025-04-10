@@ -1,3 +1,10 @@
+/*
+  STEAM GAME FETCH SERVICE
+
+  Inizialmente inglobato nella HomePage è stato isolato data la sua mole massiccia di logica
+*/
+
+
 import { Injectable } from '@angular/core';
 import { SteamAPIService } from './steam-api.service';
 import { SteamApps, SteamGamesList } from '../interfaces/steamGamesList';

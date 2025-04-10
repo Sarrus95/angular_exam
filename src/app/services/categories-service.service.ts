@@ -1,3 +1,10 @@
+/*
+  CATEGORIES SERVICE
+
+  Permette la comunicazione tra la sezione delle categorie della Navbar e le pagine di visualizzazione
+  HOME/WISHLIST/LIBRARY
+*/
+
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 

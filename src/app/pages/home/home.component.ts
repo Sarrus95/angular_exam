@@ -8,8 +8,8 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { ModalHandler } from '../../classes/modalHandler';
 import { SteamGameFetchService } from '../../services/steam-game-fetch.service';
 import { CategoryService } from '../../services/categories-service.service';
-
-
+import { SearchGameService } from '../../services/search-game.service';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -19,45 +19,70 @@ import { CategoryService } from '../../services/categories-service.service';
 })
 export class HomeComponent extends ModalHandler {
   homeGames: SteamApps[];
-  categoryGames: SteamApps[];
   page: number;
+  gamesLoaded: boolean;
   actions = {
     nextPage: environment.nextPage,
-    prevPage: environment.prevPage
-  }
+    prevPage: environment.prevPage,
+  };
 
   constructor(
+    private viewportScroller: ViewportScroller,
     private steamGameFetch: SteamGameFetchService,
     private localStorage: LocalStorageService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private searchGameService: SearchGameService
   ) {
     super();
     this.homeGames = [];
-    this.categoryGames = [];
     this.page = 0;
+    this.gamesLoaded = false;
   }
 
   ngOnInit() {
-    this.loadHomeGames();
+    this.fetchHomeGames();
     this.categoryService.selectedCategory.subscribe((category) => {
       if (category) {
-        this.categoryFetch(category);
+        this.applyCategoryFilter(category);
+      }
+    });
+  
+    this.searchGameService.searchedGame.subscribe((searchQuery) => {
+      if (searchQuery !== null) {
+        this.applySearchFilter(searchQuery);
       }
     });
   }
+  
 
-  loadHomeGames(action?: string) {
-    this.categoryCleaner();
-    if(action === this.actions.nextPage){
+  fetchHomeGames(action?: string) {
+    this.viewportScroller.scrollToPosition([0, 0]);
+    this.hideGames();
+    if (action === this.actions.nextPage) {
       this.page++;
-    }
-    else if(action === this.actions.prevPage){
+    } else if (action === this.actions.prevPage) {
       this.page--;
     }
     this.steamGameFetch.fetchInitGameData(this.page);
-    this.steamGameFetch.storedGamesSubject.subscribe((games) => {
-      this.homeGames = games;
-    });
+    this.steamGameFetch.storedGamesSubject.subscribe((fetchedGames) => {
+      this.homeGames = fetchedGames;
+      this.showGames();
+    })
+  }
+
+  loadHomeGames() {
+    this.homeGames = JSON.parse(
+      this.localStorage.getItem(environment.storedGamesLabel) || '[]'
+    );
+    this.showGames();
+  }
+
+  showGames() {
+    setTimeout(() => this.gamesLoaded = true,800);
+  }
+
+  hideGames() {
+    this.gamesLoaded = false;
   }
 
   wishlistHandler(game: SteamApps) {
@@ -75,37 +100,44 @@ export class HomeComponent extends ModalHandler {
     }
   }
 
-  libraryHandler(game: SteamApps){
+  libraryHandler(game: SteamApps) {
     const library = JSON.parse(this.localStorage.getItem('library') || '[]');
-    if(!library.some((libraryGames: SteamApps) => libraryGames.appid === game.appid)){
+    if (
+      !library.some(
+        (libraryGames: SteamApps) => libraryGames.appid === game.appid
+      )
+    ) {
       library.push(game);
-      this.localStorage.setItem('library',JSON.stringify(library));
-      alert("Game Added To Library!");
-    }
-    else{
-      alert("Game Already In Library!")
+      this.localStorage.setItem('library', JSON.stringify(library));
+      alert('Game Added To Library!');
+    } else {
+      alert('Game Already In Library!');
     }
   }
 
-  categoryFetch(category: string) {
-    if(category !== "Tutti"){
-      const results = this.homeGames.filter((homeGame: SteamApps) =>
-        homeGame.data?.genres.some((genre) => genre.description === category)
+  applyCategoryFilter(category: string) {
+    if (category === 'Tutti') {
+      this.homeGames = JSON.parse(
+        this.localStorage.getItem(environment.storedGamesLabel) || '[]'
       );
-      if (results.length > 0){
-        this.categoryGames = results
-      }
-      else{
-        alert(`No Games in category ${category}`)
-      }
-    }
-    else{
-      this.categoryCleaner();
+    } else {
+      this.homeGames = this.homeGames.filter((game) =>
+        game.data?.genres.some((genre) => genre.description === category)
+      );
     }
   }
 
-  categoryCleaner(){
-    this.categoryService.clearCategory();
-    this.categoryGames = [];
+  applySearchFilter(searchQuery: string) {
+    const allGames: SteamApps[] = JSON.parse(
+      this.localStorage.getItem(environment.storedGamesLabel) || '[]'
+    );
+  
+    if (!searchQuery || searchQuery.trim() === '') {
+      this.homeGames = allGames;
+    } else {
+      this.homeGames = allGames.filter((game) =>
+        game.data?.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
   }
 }

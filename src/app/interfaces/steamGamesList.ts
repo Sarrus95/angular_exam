@@ -1,3 +1,9 @@
+/*
+  STEAM GAMES LIST
+
+  Mappatura primaria della chiamata API appdetails
+*/
+
 import { AppData } from "./steamGamesData"
 
 export interface SteamGamesList {
@@ -9,6 +15,5 @@ export interface SteamGamesList {
 
 export interface SteamApps {
     appid: number,
-    name: string,
     data: AppData | null
 }
