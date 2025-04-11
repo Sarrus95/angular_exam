@@ -12,5 +12,6 @@ export const environment = {
     libraryLabel: 'library',
     favouritesLabel: 'favourites',
     nextPage: "next",
-    prevPage: "prev"
+    prevPage: "prev",
+    firstPage: "first"
 };

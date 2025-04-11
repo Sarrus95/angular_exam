@@ -21,14 +21,17 @@
   <button class="page-button" (click)="fetchHomeGames(actions.prevPage)">
     Pagina Precedente
   </button>
+  <button class="page-button" (click)="fetchHomeGames(actions.firstPage)">
+    Torna All'Inizio
+  </button>
   }
   <button class="page-button" (click)="fetchHomeGames(actions.nextPage)">
     Pagina Successiva
   </button><br>
 
 </div>
-<div class="DivPageCounter" style="text-align: center">
-  <label class="NmPage">Numero Pagina: </label>
+<div class="DivPageCounter" style="text-align: center; font-weight: bold">
+  <label class="NmPage">Pagina: </label>
   <label class="NmPage">{{ page+1 }}</label>
 </div>
 <app-info-game-card

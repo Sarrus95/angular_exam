@@ -22,6 +22,7 @@ export class HomeComponent extends ModalHandler {
   page: number;
   gamesLoaded: boolean;
   actions = {
+    firstPage: environment.firstPage,
     nextPage: environment.nextPage,
     prevPage: environment.prevPage,
   };
@@ -63,6 +64,8 @@ export class HomeComponent extends ModalHandler {
       
     } else if (action === this.actions.prevPage) {
       this.page--;
+    } else if (action === this.actions.firstPage) {
+      this.page = 0;
     }
     this.steamGameFetch.fetchInitGameData(this.page);
     this.steamGameFetch.storedGamesSubject.subscribe((fetchedGames) => {
