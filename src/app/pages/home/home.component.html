@@ -24,7 +24,12 @@
   }
   <button class="page-button" (click)="fetchHomeGames(actions.nextPage)">
     Pagina Successiva
-  </button>
+  </button><br>
+
+</div>
+<div class="DivPageCounter" style="text-align: center">
+  <label class="NmPage">Numero Pagina: </label>
+  <label class="NmPage">{{ page+1 }}</label>
 </div>
 <app-info-game-card
   [game]="selectedGame"

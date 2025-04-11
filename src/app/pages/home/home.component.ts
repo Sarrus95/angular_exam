@@ -60,6 +60,7 @@ export class HomeComponent extends ModalHandler {
     this.hideGames();
     if (action === this.actions.nextPage) {
       this.page++;
+      
     } else if (action === this.actions.prevPage) {
       this.page--;
     }
